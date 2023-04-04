@@ -10,6 +10,6 @@ export class AuthHttpService {
   constructor(private http: HttpClient) {}
 
   public signIn(user: UserDataModel): Observable<string> {
-    return this.http.post<string>('https://api.asgk-group.ru/test-auth-only', user);
+    return this.http.post<string>('test-auth-only', user);
   }
 }
