@@ -14,7 +14,6 @@ export class AuthInterceptor implements HttpInterceptor {
       url: URL,
     });
     const updatedRequest = this.localStorageService.getItem('auth') ? request : newRequest;
-    console.log(updatedRequest);
     return next.handle(updatedRequest);
   }
 }

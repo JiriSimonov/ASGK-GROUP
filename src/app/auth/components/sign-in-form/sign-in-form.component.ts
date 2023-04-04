@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { UserDataModel } from '../../../shared/models/user-data.model';
 
@@ -8,7 +9,8 @@ import { UserDataModel } from '../../../shared/models/user-data.model';
   templateUrl: './sign-in-form.component.html',
   styleUrls: ['./sign-in-form.component.scss'],
 })
-export class SignInFormComponent implements OnInit {
+export class SignInFormComponent implements OnInit, OnDestroy {
+  private subs = new Subscription();
   public signInForm!: FormGroup<{
     login: FormControl<string | null>;
     password: FormControl<string | null>;
@@ -39,6 +41,10 @@ export class SignInFormComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    this.authService.login(this.getUserData).subscribe();
+    this.subs.add(this.authService.login(this.getUserData).subscribe());
+  }
+
+  public ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }
