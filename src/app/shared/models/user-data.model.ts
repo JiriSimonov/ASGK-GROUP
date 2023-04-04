@@ -1,4 +1,5 @@
 export interface UserDataModel {
   login: string;
-  token: string;
+  password: string;
+  token?: string;
 }

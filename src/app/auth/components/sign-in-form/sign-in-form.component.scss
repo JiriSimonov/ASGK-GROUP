@@ -1,0 +1,10 @@
+.auth {
+  margin: 40px auto;
+  max-width: 600px;
+
+  &__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  }
+}

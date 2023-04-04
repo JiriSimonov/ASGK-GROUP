@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { UserDataModel } from '../../../shared/models/user-data.model';
 
 @Component({
   selector: 'asgk-sign-in-form',
@@ -12,10 +14,12 @@ export class SignInFormComponent implements OnInit {
     password: FormControl<string | null>;
   }>;
 
+  constructor(private authService: AuthService) {}
+
   public ngOnInit(): void {
     this.signInForm = new FormGroup({
-      login: new FormControl<string | null>(''),
-      password: new FormControl<string | null>(''),
+      login: new FormControl<string | null>('', [Validators.required, Validators.email]),
+      password: new FormControl<string | null>('', [Validators.required]),
     });
   }
 
@@ -27,5 +31,14 @@ export class SignInFormComponent implements OnInit {
     return this.signInForm.controls.password;
   }
 
-  public onSubmit(): void {}
+  public get getUserData(): UserDataModel {
+    return {
+      login: this.loginControl.value ?? '',
+      password: this.passwordControl.value ?? '',
+    };
+  }
+
+  public onSubmit(): void {
+    this.authService.login(this.getUserData).subscribe();
+  }
 }
