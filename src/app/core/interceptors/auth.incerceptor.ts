@@ -10,10 +10,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
   public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const URL = `${environment.AUTH_PATH}${request.url}`;
-    const newRequest = request.clone({
-      url: URL,
-    });
-    const updatedRequest = this.localStorageService.getItem('auth') ? request : newRequest;
+    const updatedRequest = this.localStorageService.getItem('auth')
+      ? request
+      : request.clone({
+          url: URL,
+        });
     return next.handle(updatedRequest);
   }
 }

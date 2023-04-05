@@ -11,11 +11,12 @@ export class AsgkInterceptor implements HttpInterceptor {
   public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const apiToken = this.localStorageService.getItem('auth');
     const URL = `${environment.API_PATH}${apiToken}${request.url}`;
-    const newRequest = request.clone({
-      setHeaders: { Authorization: `${apiToken}` },
-      url: URL,
-    });
-    const updatedRequest = apiToken ? newRequest : request;
+    const updatedRequest = apiToken
+      ? request.clone({
+          setHeaders: { Authorization: `${apiToken}` },
+          url: URL,
+        })
+      : request;
     return next.handle(updatedRequest);
   }
 }
