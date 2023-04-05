@@ -6,17 +6,18 @@
       <input matInput [formControl]="userIdControl" placeholder="1184987" />
       <mat-error *ngIf="userIdControl.hasError('required')">required</mat-error>
       <mat-error *ngIf="userIdControl.hasError('pattern')">Only numbers</mat-error>
+      <mat-error *ngIf="userIdControl.hasError('isClientNotExits')">User does not exist</mat-error>
       <mat-error *ngIf="userIdControl.hasError('minlength') || userIdControl.hasError('maxlength')"
         >Length is 7</mat-error
       >
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>message</mat-label>
-      <input type="password" matInput [formControl]="pushMessageControl" placeholder="hello!" />
+      <input matInput [formControl]="pushMessageControl" placeholder="hello!" />
       <mat-error *ngIf="pushMessageControl.hasError('required')">required</mat-error>
       <mat-error *ngIf="pushMessageControl.hasError('minlength')">Min length is 10</mat-error>
       <mat-error *ngIf="pushMessageControl.hasError('maxlength')">Max length is 200</mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" [disabled]="messageForm.invalid">send</button>
+    <button mat-raised-button color="primary" [disabled]="messageForm.invalid || messageForm.pending">send</button>
   </form>
 </div>

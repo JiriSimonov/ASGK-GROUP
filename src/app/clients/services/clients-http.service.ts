@@ -5,6 +5,7 @@ import { ClientsResponseModel } from '../models/clients-response.model';
 import { SearchValueModel } from '../models/search-value.model';
 import { PushMessageModel } from '../models/push-message.model';
 import { PushMessageResponseModels } from '../models/push-message-response.models';
+import { ClientInfoModel } from '../models/client-info.model';
 
 const requestPath = '/passes';
 
@@ -30,5 +31,9 @@ export class ClientsHttpService {
 
   public sendMessage(message: PushMessageModel): Observable<PushMessageResponseModels> {
     return this.http.post<PushMessageResponseModels>('/message/push', message);
+  }
+
+  public getClientById(id: string): Observable<ClientInfoModel> {
+    return this.http.get<ClientInfoModel>(`${requestPath}/userid/${id}`);
   }
 }

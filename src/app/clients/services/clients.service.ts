@@ -7,16 +7,16 @@ import { ClientsResponseModel } from '../models/clients-response.model';
 import { PushMessageModel } from '../models/push-message.model';
 import { PushMessageResponseModels } from '../models/push-message-response.models';
 import { SearchValueModel } from '../models/search-value.model';
-import { defaultStringSorter } from '../constans/default-string-sorter.const';
-import { sortMap } from '../constans/sort-map.const';
+import { defaultStringSorter } from '../constants/default-string-sorter.const';
+import { sortMap } from '../constants/sort-map.const';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClientsService {
-  private clients$$ = new BehaviorSubject<ClientInfoModel[]>([]);
   private sort$$ = new BehaviorSubject<Sort | null>(null);
   public sort$ = this.sort$$.asObservable();
+  private clients$$ = new BehaviorSubject<ClientInfoModel[]>([]);
   public clients$ = combineLatest([this.clients$$.asObservable(), this.sort$]).pipe(
     map(([clients, sort]) =>
       sort

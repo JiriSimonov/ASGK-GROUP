@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ClientsService } from '../../services/clients.service';
 import { PushMessageModel } from '../../models/push-message.model';
+import { isClientIdExist } from '../../validators/client-id.validator';
+import { ClientsHttpService } from '../../services/clients-http.service';
 
 @Component({
   selector: 'asgk-clients-modal',
@@ -18,16 +20,19 @@ export class ClientsModalComponent implements OnInit, OnDestroy {
   }>;
   private subs = new Subscription();
 
-  constructor(private clientsService: ClientsService, private dialog: MatDialog) {}
+  constructor(
+    private clientsService: ClientsService,
+    private dialog: MatDialog,
+    private clientsHttpService: ClientsHttpService,
+  ) {}
 
   public ngOnInit(): void {
     this.messageForm = new FormGroup({
-      user_id: new FormControl<string | null>('', [
-        Validators.required,
-        Validators.maxLength(7),
-        Validators.minLength(7),
-        Validators.pattern('^\\d{7}$'),
-      ]),
+      user_id: new FormControl<string | null>(
+        '',
+        [Validators.required, Validators.maxLength(7), Validators.minLength(7), Validators.pattern('[0-9]+')],
+        [isClientIdExist(this.clientsHttpService)],
+      ),
       push_message: new FormControl<string | null>('', [
         Validators.required,
         Validators.minLength(10),
