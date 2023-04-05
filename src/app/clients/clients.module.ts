@@ -6,6 +6,7 @@ import { ClientsPageComponent } from './pages/clients-page/clients-page.componen
 import { ClientsTableComponent } from './components/clients-table/clients-table.component';
 import { SharedModule } from '../shared/shared.module';
 import { ClientsModalComponent } from './components/clients-modal/clients-modal.component';
+import { SearchFormComponent } from './components/search-form/search-form.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ClientsPageComponent, ClientsTableComponent, ClientsModalComponent],
+  declarations: [ClientsPageComponent, ClientsTableComponent, ClientsModalComponent, SearchFormComponent],
   imports: [CommonModule, RouterModule.forChild(routes), SharedModule, ReactiveFormsModule],
 })
 export class ClientsModule {}

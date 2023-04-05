@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { ClientsService } from '../../services/clients.service';
 import { ClientsModalComponent } from '../clients-modal/clients-modal.component';
 
@@ -8,11 +9,11 @@ import { ClientsModalComponent } from '../clients-modal/clients-modal.component'
   templateUrl: './clients-table.component.html',
   styleUrls: ['./clients-table.component.scss'],
 })
-export class ClientsTableComponent implements OnInit {
+export class ClientsTableComponent implements OnInit, OnDestroy {
   public dataSource = this.clientsService.clients$;
   public displayedColumns: string[] = [
-    'first_name',
     'last_name',
+    'first_name',
     'pat_name',
     'gender',
     'birthday',
@@ -28,16 +29,21 @@ export class ClientsTableComponent implements OnInit {
     'o_s',
     'template',
   ];
+  private subs = new Subscription();
 
   constructor(private clientsService: ClientsService, private createDialog: MatDialog) {}
 
   public ngOnInit(): void {
-    this.clientsService.getClients().subscribe();
+    this.subs.add(this.clientsService.getClients().subscribe());
   }
 
   public openMessageDialog(): void {
     this.createDialog.open(ClientsModalComponent, {
       width: '400px',
     });
+  }
+
+  public ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }

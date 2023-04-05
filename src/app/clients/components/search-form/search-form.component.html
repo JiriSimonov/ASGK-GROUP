@@ -1,0 +1,16 @@
+<div class="search">
+  <h2>search client</h2>
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="search__form">
+    <mat-form-field appearance="outline">
+      <mat-label>First name</mat-label>
+      <input matInput [formControl]="firstNameControl" placeholder="Иван" />
+      <mat-error *ngIf="firstNameControl.hasError('required')">required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Last name</mat-label>
+      <input matInput [formControl]="lastNameControl" placeholder="Иванов" />
+      <mat-error *ngIf="lastNameControl.hasError('required')">required</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" [disabled]="searchForm.invalid" class="search__btn">search</button>
+  </form>
+</div>

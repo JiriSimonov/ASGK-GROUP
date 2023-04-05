@@ -5,6 +5,7 @@ import { ClientInfoModel } from '../models/client-info.model';
 import { ClientsResponseModel } from '../models/clients-response.model';
 import { PushMessageModel } from '../models/push-message.model';
 import { PushMessageResponseModels } from '../models/push-message-response.models';
+import { SearchValueModel } from '../models/search-value.model';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,12 @@ export class ClientsService {
   public getClients(): Observable<ClientsResponseModel> {
     return this.clientsHttpService
       .getClients()
+      .pipe(tap((clientsResponse) => this.clients$$.next(clientsResponse.passes)));
+  }
+
+  public searchClient(client: SearchValueModel): Observable<ClientsResponseModel> {
+    return this.clientsHttpService
+      .searchClient(client)
       .pipe(tap((clientsResponse) => this.clients$$.next(clientsResponse.passes)));
   }
 
