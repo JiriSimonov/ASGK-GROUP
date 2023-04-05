@@ -13,7 +13,7 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>message</mat-label>
-      <input matInput [formControl]="pushMessageControl" placeholder="hello!" />
+      <textarea matInput [formControl]="pushMessageControl" placeholder="hello!"></textarea>
       <mat-error *ngIf="pushMessageControl.hasError('required')">required</mat-error>
       <mat-error *ngIf="pushMessageControl.hasError('minlength')">Min length is 10</mat-error>
       <mat-error *ngIf="pushMessageControl.hasError('maxlength')">Max length is 200</mat-error>

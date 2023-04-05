@@ -1,4 +1,7 @@
 .search {
+  display: flex;
+  gap: 10px;
+
   &__form {
     display: flex;
     gap: 20px;
@@ -7,4 +10,8 @@
   &__btn {
     margin-top: 10px;
   }
+}
+
+.clear {
+  margin-top: 10px;
 }

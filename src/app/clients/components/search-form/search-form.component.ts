@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ClientsService } from '../../services/clients.service';
@@ -15,9 +15,10 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     first_name: FormControl<string | null>;
     last_name: FormControl<string | null>;
   }>;
+  public showClearButton = false;
   private subs = new Subscription();
 
-  constructor(private clientsService: ClientsService) {}
+  constructor(private clientsService: ClientsService, private cdr: ChangeDetectorRef) {}
 
   public ngOnInit(): void {
     this.searchForm = new FormGroup({
@@ -42,7 +43,21 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    this.subs.add(this.clientsService.searchClient(this.searchValue).subscribe());
+    this.subs.add(
+      this.clientsService.searchClient(this.searchValue).subscribe(() => {
+        this.showClearButton = !this.showClearButton;
+        this.cdr.detectChanges();
+      }),
+    );
+  }
+
+  public changeClearButtonVisibility(): void {
+    this.subs.add(
+      this.clientsService.getClients().subscribe(() => {
+        this.showClearButton = !this.showClearButton;
+        this.cdr.detectChanges();
+      }),
+    );
   }
 
   public ngOnDestroy(): void {

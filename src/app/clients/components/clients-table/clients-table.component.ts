@@ -42,11 +42,11 @@ export class ClientsTableComponent implements OnInit, OnDestroy {
     });
   }
 
-  public ngOnDestroy(): void {
-    this.subs.unsubscribe();
-  }
-
   public sortClients(sortCriteria: Sort): void {
     this.clientsService.sortClients(sortCriteria);
+  }
+
+  public ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }
