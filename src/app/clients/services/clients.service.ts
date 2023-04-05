@@ -3,6 +3,8 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { ClientsHttpService } from './clients-http.service';
 import { ClientInfoModel } from '../models/client-info.model';
 import { ClientsResponseModel } from '../models/clients-response.model';
+import { PushMessageModel } from '../models/push-message.model';
+import { PushMessageResponseModels } from '../models/push-message-response.models';
 
 @Injectable({
   providedIn: 'root',
@@ -16,5 +18,9 @@ export class ClientsService {
     return this.clientsHttpService
       .getClients()
       .pipe(tap((clientsResponse) => this.clients$$.next(clientsResponse.passes)));
+  }
+
+  public sendMessage(message: PushMessageModel): Observable<PushMessageResponseModels> {
+    return this.clientsHttpService.sendMessage(message);
   }
 }

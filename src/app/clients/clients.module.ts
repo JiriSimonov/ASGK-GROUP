@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ClientsPageComponent } from './pages/clients-page/clients-page.component';
 import { ClientsTableComponent } from './components/clients-table/clients-table.component';
 import { SharedModule } from '../shared/shared.module';
@@ -15,6 +16,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [ClientsPageComponent, ClientsTableComponent, ClientsModalComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedModule],
+  imports: [CommonModule, RouterModule.forChild(routes), SharedModule, ReactiveFormsModule],
 })
 export class ClientsModule {}
