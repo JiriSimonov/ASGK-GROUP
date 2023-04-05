@@ -6,8 +6,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSortModule } from '@angular/material/sort';
 
-const MODULES = [MatFormFieldModule, MatCardModule, MatInputModule, MatButtonModule, MatTableModule, MatDialogModule];
+const MODULES = [
+  MatFormFieldModule,
+  MatCardModule,
+  MatInputModule,
+  MatButtonModule,
+  MatTableModule,
+  MatDialogModule,
+  MatSortModule,
+];
 
 @NgModule({
   imports: [CommonModule],

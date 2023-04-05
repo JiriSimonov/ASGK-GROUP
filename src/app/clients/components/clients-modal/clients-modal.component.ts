@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,6 +9,7 @@ import { PushMessageModel } from '../../models/push-message.model';
   selector: 'asgk-clients-modal',
   templateUrl: './clients-modal.component.html',
   styleUrls: ['./clients-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientsModalComponent implements OnInit, OnDestroy {
   public messageForm!: FormGroup<{

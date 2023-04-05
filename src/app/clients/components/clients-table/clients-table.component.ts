@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { Sort } from '@angular/material/sort';
 import { ClientsService } from '../../services/clients.service';
 import { ClientsModalComponent } from '../clients-modal/clients-modal.component';
 
@@ -8,9 +9,10 @@ import { ClientsModalComponent } from '../clients-modal/clients-modal.component'
   selector: 'asgk-clients-table',
   templateUrl: './clients-table.component.html',
   styleUrls: ['./clients-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientsTableComponent implements OnInit, OnDestroy {
-  public dataSource = this.clientsService.clients$;
+  public clients$ = this.clientsService.clients$;
   public displayedColumns: string[] = [
     'last_name',
     'first_name',
@@ -25,9 +27,6 @@ export class ClientsTableComponent implements OnInit, OnDestroy {
     'created_at',
     'discount',
     'link',
-    'loyalty_level',
-    'o_s',
-    'template',
   ];
   private subs = new Subscription();
 
@@ -45,5 +44,9 @@ export class ClientsTableComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.subs.unsubscribe();
+  }
+
+  public sortClients(sortCriteria: Sort): void {
+    this.clientsService.sortClients(sortCriteria);
   }
 }
