@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 const MODULES = [
   MatFormFieldModule,
@@ -16,6 +18,8 @@ const MODULES = [
   MatTableModule,
   MatDialogModule,
   MatSortModule,
+  MatMenuModule,
+  MatIconModule,
 ];
 
 @NgModule({

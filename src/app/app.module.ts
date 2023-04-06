@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { interceptorProviders } from './shared/consts/interceptors';
+import { interceptorProviders } from './core/consts/interceptors';
 
 @NgModule({
   declarations: [AppComponent],

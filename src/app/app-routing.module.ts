@@ -24,7 +24,7 @@ const routes: Routes = [
   },
   {
     path: '404',
-    loadChildren: () => import('./core/not-foound/not-found.module').then((m) => m.NotFoundModule),
+    loadChildren: () => import('./core/not-found/not-found.module').then((m) => m.NotFoundModule),
   },
 ];
 

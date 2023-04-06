@@ -15,7 +15,7 @@ export abstract class StorageService implements Storage {
     return plainKey;
   }
 
-  public setItem(key: string, value: string): void {
+  public setItem(key: string, value: unknown): void {
     this.api.setItem(this.prefixKey(key), JSON.stringify({ value }));
   }
 

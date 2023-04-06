@@ -10,7 +10,8 @@ import { AuthTokenModel } from '../../shared/models/auth-token.model';
   providedIn: 'root',
 })
 export class AuthService {
-  private userData = new BehaviorSubject<UserDataModel | null>(null);
+  private userData$$ = new BehaviorSubject<UserDataModel | null>(this.localStorageService.getItem('auth'));
+  public userData$ = this.userData$$.asObservable();
 
   constructor(
     private authHttpService: AuthHttpService,
@@ -20,11 +21,21 @@ export class AuthService {
 
   public login(user: UserDataModel): Observable<AuthTokenModel> {
     return this.authHttpService.signIn(user).pipe(
-      tap((token) => {
-        this.userData.next({ login: user.login, password: user.password, token: token.auth_token });
-        this.localStorageService.setItem('auth', token.auth_token);
+      tap(({ auth_token }) => {
+        const userData = {
+          login: user.login,
+          token: auth_token,
+        };
+        this.userData$$.next(userData);
+        this.localStorageService.setItem('auth', userData);
         this.router.navigate(['clients']).catch();
       }),
     );
+  }
+
+  public logout(): void {
+    this.localStorageService.removeItem('auth');
+    this.userData$$.next(null);
+    this.router.navigate(['auth']).catch();
   }
 }

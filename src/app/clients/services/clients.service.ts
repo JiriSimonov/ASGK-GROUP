@@ -7,8 +7,8 @@ import { ClientsResponseModel } from '../models/clients-response.model';
 import { PushMessageModel } from '../models/push-message.model';
 import { PushMessageResponseModels } from '../models/push-message-response.models';
 import { SearchValueModel } from '../models/search-value.model';
-import { defaultStringSorter } from '../constants/default-string-sorter.const';
-import { sortMap } from '../constants/sort-map.const';
+import { localeStringComporator } from '../utils/locale-string-comporator.const';
+import { sortMap } from '../utils/sort-map.const';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +24,7 @@ export class ClientsService {
             (a, b) =>
               (sortMap[sort.active]
                 ? sortMap[sort.active](a, b)
-                : defaultStringSorter(
+                : localeStringComporator(
                     a[sort.active as keyof ClientInfoModel].toString(),
                     b[sort.active as keyof ClientInfoModel].toString(),
                   )) * (sort.direction === 'asc' ? 1 : -1),

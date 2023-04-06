@@ -1,5 +1,5 @@
 export interface UserDataModel {
   login: string;
-  password: string;
+  password?: string;
   token?: string;
 }
